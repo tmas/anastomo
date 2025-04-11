@@ -32,6 +32,7 @@ USAGE
 * [`anastomo hello PERSON`](#anastomo-hello-person)
 * [`anastomo hello world`](#anastomo-hello-world)
 * [`anastomo help [COMMAND]`](#anastomo-help-command)
+* [`anastomo lint`](#anastomo-lint)
 * [`anastomo plugins`](#anastomo-plugins)
 * [`anastomo plugins add PLUGIN`](#anastomo-plugins-add-plugin)
 * [`anastomo plugins:inspect PLUGIN...`](#anastomo-pluginsinspect-plugin)
@@ -104,6 +105,27 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.27/src/commands/help.ts)_
+
+## `anastomo lint`
+
+Parse the config file and ensure it is valid
+
+```
+USAGE
+  $ anastomo lint [-c <value>]
+
+FLAGS
+  -c, --config=<value>  [default: anastomo.conf.json] Path to config file
+
+DESCRIPTION
+  Parse the config file and ensure it is valid
+
+EXAMPLES
+  $ anastomo lint --config anastomo.config.ts
+  Config is valid!
+```
+
+_See code: [src/commands/lint/index.ts](https://github.com/tmas/anastomo/blob/v0.0.0/src/commands/lint/index.ts)_
 
 ## `anastomo plugins`
 
