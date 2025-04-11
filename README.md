@@ -1,6 +1,8 @@
 anastomo
 =================
 
+![Anastomo Logo](logo.svg)
+
 A build tool for managing multiple frontend build pipelines while maintaining assets in a single location
 
 
