@@ -1,7 +1,7 @@
-import {Command, Flags} from '@oclif/core'
-import {execSync} from 'node:child_process'
+import { Command, Flags } from '@oclif/core'
+import { execSync } from 'node:child_process'
 
-import {resolveConfig} from '../../config-resolver.js'
+import { resolveConfig } from '../../resolve-config.js'
 
 export default class Lint extends Command {
   static description = 'Parse the config file and ensure it is valid'
@@ -11,7 +11,7 @@ Config is valid!
 `,
   ]
   static flags = {
-    config: Flags.string({char: 'c', default: 'anastomo.conf.json', description: 'Path to config file', required: false}),
+    config: Flags.string({ char: 'c', default: 'anastomo.conf.json', description: 'Path to config file', required: false }),
   }
 
   async run(): Promise<void> {
