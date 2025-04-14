@@ -21,7 +21,7 @@ Config is valid!
       const config = await resolveConfig(flags.config)
       this.log('Config is valid!')
       this.log('Found ' + config.pipelines.length + ' pipelines:')
-      config.pipelines.forEach(pipeline => {
+      for (const pipeline of config.pipelines) {
         this.log(` - ${pipeline.name}: ${pipeline.description} (${pipeline.src.length} sources, ${pipeline.artifacts.length} artifacts)`)
         if (pipeline.buildCommand) {
           this.log(`   - Using build command: ${pipeline.buildCommand}`)
@@ -34,7 +34,7 @@ Config is valid!
         } else {
           this.log(`   - Using default node version (${execSync('node --version').toString().trim()})`)
         }
-      })
+      }
     } catch (error) {
       if (error instanceof Error) {
         this.error(error.message)
