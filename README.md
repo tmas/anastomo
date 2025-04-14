@@ -22,7 +22,7 @@ $ npm install -g anastomo
 $ anastomo COMMAND
 running command...
 $ anastomo (--version)
-anastomo/0.0.0 linux-x64 node-v20.19.0
+anastomo/0.0.1 linux-x64 node-v22.14.0
 $ anastomo --help [COMMAND]
 USAGE
   $ anastomo COMMAND
