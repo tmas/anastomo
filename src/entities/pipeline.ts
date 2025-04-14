@@ -8,6 +8,7 @@ export interface Pipeline {
   nodeVersion?: string
   packageJson: string
   packageLock: string
+  pathMap?: Record<string, string>
   src: string[]
 }
 
@@ -19,6 +20,7 @@ export const PipelineSchema = z.object({
   nodeVersion: z.string().optional(),
   packageJson: z.string().optional(),
   packageLock: z.string().optional(),
+  pathMap: z.record(z.string(), z.string()).optional(),
   src: z.array(z.string()),
 })
 
