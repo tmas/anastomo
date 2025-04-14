@@ -1,0 +1,43 @@
+{
+  "pipelines": [
+    {
+      "name": "legacy",
+      "description": "Legacy JS build",
+      "buildCommand": "mkdir -p public/js && cp resources/assets/js/old.js public/js/",
+      "packageJson": "package.legacy.json",
+      "packageLock": "package-lock.legacy.json",
+      "nodeVersion": "lts/gallium",
+      "src": [
+        "resources/assets/js/old.js"
+      ],
+      "artifacts": [
+        "public/js/old.js"
+      ]
+    },
+    {
+      "name": "modern",
+      "description": "Modern JS build",
+      "buildCommand": "mkdir -p public/js && cp resources/assets/js/new.js public/js/",
+      "nodeVersion": "lts/iron",
+      "src": [
+        "resources/assets/js/new.js"
+      ],
+      "artifacts": [
+        "public/js/new.js"
+      ]
+    },
+    {
+      "name": "static",
+      "description": "Static files that do not go through a build process",
+      "src": [
+        "resources/assets/css/"
+      ],
+      "pathMap": {
+        "resources/assets/css/": "public/css/"
+      },
+      "artifacts": [
+        "public/css/"
+      ]
+    }
+  ]
+}
