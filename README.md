@@ -22,7 +22,7 @@ $ npm install -g anastomo
 $ anastomo COMMAND
 running command...
 $ anastomo (--version)
-anastomo/0.0.0 linux-x64 node-v22.14.0
+anastomo/0.0.0 linux-x64 node-v20.19.0
 $ anastomo --help [COMMAND]
 USAGE
   $ anastomo COMMAND
@@ -31,9 +31,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`anastomo build`](#anastomo-build)
 * [`anastomo help [COMMAND]`](#anastomo-help-command)
-* [`anastomo lint`](#anastomo-lint)
 * [`anastomo plugins`](#anastomo-plugins)
 * [`anastomo plugins add PLUGIN`](#anastomo-plugins-add-plugin)
 * [`anastomo plugins:inspect PLUGIN...`](#anastomo-pluginsinspect-plugin)
@@ -44,27 +42,6 @@ USAGE
 * [`anastomo plugins uninstall [PLUGIN]`](#anastomo-plugins-uninstall-plugin)
 * [`anastomo plugins unlink [PLUGIN]`](#anastomo-plugins-unlink-plugin)
 * [`anastomo plugins update`](#anastomo-plugins-update)
-
-## `anastomo build`
-
-Split assets and tooling, run build commands, and copy artifacts to build directory
-
-```
-USAGE
-  $ anastomo build [-c <value>] [-t <value>]
-
-FLAGS
-  -c, --config=<value>  [default: anastomo.conf.json] Path to config file
-  -t, --target=<value>  [default: .] Path to target project
-
-DESCRIPTION
-  Split assets and tooling, run build commands, and copy artifacts to build directory
-
-EXAMPLES
-  $ anastomo build --config anastomo.config.ts --target .
-```
-
-_See code: [src/commands/build/index.ts](https://github.com/tmas/anastomo/blob/v0.0.0/src/commands/build/index.ts)_
 
 ## `anastomo help [COMMAND]`
 
@@ -85,27 +62,6 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.27/src/commands/help.ts)_
-
-## `anastomo lint`
-
-Parse the config file and ensure it is valid
-
-```
-USAGE
-  $ anastomo lint [-c <value>]
-
-FLAGS
-  -c, --config=<value>  [default: anastomo.conf.json] Path to config file
-
-DESCRIPTION
-  Parse the config file and ensure it is valid
-
-EXAMPLES
-  $ anastomo lint --config anastomo.config.ts
-  Config is valid!
-```
-
-_See code: [src/commands/lint/index.ts](https://github.com/tmas/anastomo/blob/v0.0.0/src/commands/lint/index.ts)_
 
 ## `anastomo plugins`
 
