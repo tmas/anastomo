@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "author": "Thomas Lord",
   "bin": {
-    "anastomo": "./bin/run.js"
+    "anastomo": "bin/run.js"
   },
   "bugs": "https://github.com/tmas/anastomo/issues",
   "dependencies": {
@@ -59,7 +59,10 @@
     "topicSeparator": " ",
     "topics": {}
   },
-  "repository": "tmas/anastomo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmas/anastomo.git"
+  },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint",
