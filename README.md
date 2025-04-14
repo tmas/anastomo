@@ -32,8 +32,6 @@ USAGE
 # Commands
 <!-- commands -->
 * [`anastomo build`](#anastomo-build)
-* [`anastomo hello PERSON`](#anastomo-hello-person)
-* [`anastomo hello world`](#anastomo-hello-world)
 * [`anastomo help [COMMAND]`](#anastomo-help-command)
 * [`anastomo lint`](#anastomo-lint)
 * [`anastomo plugins`](#anastomo-plugins)
@@ -67,48 +65,6 @@ EXAMPLES
 ```
 
 _See code: [src/commands/build/index.ts](https://github.com/tmas/anastomo/blob/v0.0.0/src/commands/build/index.ts)_
-
-## `anastomo hello PERSON`
-
-Say hello
-
-```
-USAGE
-  $ anastomo hello PERSON -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ anastomo hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
-```
-
-_See code: [src/commands/hello/index.ts](https://github.com/tmas/anastomo/blob/v0.0.0/src/commands/hello/index.ts)_
-
-## `anastomo hello world`
-
-Say hello world
-
-```
-USAGE
-  $ anastomo hello world
-
-DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ anastomo hello world
-  hello world! (./src/commands/hello/world.ts)
-```
-
-_See code: [src/commands/hello/world.ts](https://github.com/tmas/anastomo/blob/v0.0.0/src/commands/hello/world.ts)_
 
 ## `anastomo help [COMMAND]`
 

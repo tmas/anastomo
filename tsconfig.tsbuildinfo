@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/resolve-config.ts","./src/commands/build/index.ts","./src/commands/hello/index.ts","./src/commands/hello/world.ts","./src/commands/lint/index.ts","./src/entities/config.ts","./src/entities/pipeline.ts","./src/hooks/init/require-nvm.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/resolve-config.ts","./src/commands/build/index.ts","./src/commands/lint/index.ts","./src/entities/config.ts","./src/entities/pipeline.ts","./src/hooks/init/require-nvm.ts"],"version":"5.8.3"}

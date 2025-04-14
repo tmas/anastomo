@@ -148,6 +148,8 @@ export default class Build extends Command {
                     cpSync(srcPath, destPath, { recursive: true })
                 }
             }
+
+            this.log('Build complete!')
         } catch (error) {
             if (error instanceof Error) {
                 this.error(error.message)
