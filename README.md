@@ -22,7 +22,7 @@ $ npm install -g anastomo
 $ anastomo COMMAND
 running command...
 $ anastomo (--version)
-anastomo/0.0.0 linux-x64 node-v20.19.0
+anastomo/0.0.0 linux-x64 node-v22.14.0
 $ anastomo --help [COMMAND]
 USAGE
   $ anastomo COMMAND
@@ -31,6 +31,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`anastomo build`](#anastomo-build)
 * [`anastomo hello PERSON`](#anastomo-hello-person)
 * [`anastomo hello world`](#anastomo-hello-world)
 * [`anastomo help [COMMAND]`](#anastomo-help-command)
@@ -45,6 +46,27 @@ USAGE
 * [`anastomo plugins uninstall [PLUGIN]`](#anastomo-plugins-uninstall-plugin)
 * [`anastomo plugins unlink [PLUGIN]`](#anastomo-plugins-unlink-plugin)
 * [`anastomo plugins update`](#anastomo-plugins-update)
+
+## `anastomo build`
+
+Split assets and tooling, run build commands, and copy artifacts to build directory
+
+```
+USAGE
+  $ anastomo build [-c <value>] [-t <value>]
+
+FLAGS
+  -c, --config=<value>  [default: anastomo.conf.json] Path to config file
+  -t, --target=<value>  [default: .] Path to target project
+
+DESCRIPTION
+  Split assets and tooling, run build commands, and copy artifacts to build directory
+
+EXAMPLES
+  $ anastomo build --config anastomo.config.ts --target .
+```
+
+_See code: [src/commands/build/index.ts](https://github.com/tmas/anastomo/blob/v0.0.0/src/commands/build/index.ts)_
 
 ## `anastomo hello PERSON`
 
