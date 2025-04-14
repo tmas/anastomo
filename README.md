@@ -28,7 +28,7 @@ USAGE
   $ anastomo COMMAND
 ...
 ```
-<!-- usagestop  -->
+<!-- usagestop -->
 # Commands
 <!-- commands -->
 * [`anastomo build`](#anastomo-build)
