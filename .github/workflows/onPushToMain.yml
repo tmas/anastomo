@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-      - name: Check if version already exists
-        id: version-check
         with:
           node-version-file: '.nvmrc'
+      - name: Check if version already exists
+        id: version-check
         run: |
           package_version=$(node -p "require('./package.json').version")
           exists=$(gh api repos/${{ github.repository }}/releases/tags/v$package_version >/dev/null 2>&1 && echo "true" || echo "")
