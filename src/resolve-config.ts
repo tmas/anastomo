@@ -1,12 +1,12 @@
-import {readFileSync} from 'node:fs'
-import {join} from 'node:path'
-import {z} from 'zod'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { z } from 'zod'
 
-import {ConfigSchema, ConfigType} from './entities/config.js'
-import {defaultPipeline} from './entities/pipeline.js'
+import { Config, ConfigSchema } from './entities/config.js'
+import { defaultPipeline, Pipeline } from './entities/pipeline.js'
 import { npmInstalled } from './hooks/init/require-nvm.js'
 
-export async function resolveConfig(configPath: string): Promise<ConfigType> {
+export async function resolveConfig(configPath: string): Promise<Config> {
   try {
     // Read and parse the config file
     const fullPath = join(process.cwd(), configPath)
@@ -26,14 +26,14 @@ export async function resolveConfig(configPath: string): Promise<ConfigType> {
 
     // Merge defaults with the validated config
     const config = result.data
-    const resolvedConfig: ConfigType = {
+    const resolvedConfig: Config = {
       pipelines: config.pipelines.map(pipeline => ({
         ...defaultPipeline,
         ...pipeline,
-        // Ensure arrays are not overwritten by defaults if they exist
-        artifacts: pipeline.artifacts || defaultPipeline.artifacts,
-        src: pipeline.src || defaultPipeline.src,
-      }))
+        // Ensure artifacts and src are always provided by the pipeline config.
+        artifacts: pipeline.artifacts,
+        src: pipeline.src,
+      }) as Pipeline)
     }
 
 
@@ -41,7 +41,7 @@ export async function resolveConfig(configPath: string): Promise<ConfigType> {
       throw new Error('Pipelines must not define nodeVersion unless NVM is available.')
     }
 
-    return resolvedConfig
+    return resolvedConfig as Config
   } catch (error) {
     if (error instanceof Error) {
       throw new TypeError(`Failed to resolve config: ${error.message}`)
