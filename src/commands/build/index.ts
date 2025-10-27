@@ -1,7 +1,7 @@
 import { Command, Flags } from '@oclif/core'
 import { execSync } from 'node:child_process'
 import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 
 import { Pipeline } from '../../entities/pipeline.js'
 import { resolveConfig } from '../../resolve-config.js'
@@ -60,7 +60,7 @@ export default class Build extends Command {
 
         try {
             const config = await resolveConfig(flags.config)
-            const targetDir = join(process.cwd(), flags.target)
+            const targetDir = resolve(process.cwd(), flags.target)
             const workingDir = this.getWorkingDir(targetDir)
             const buildDir = this.getBuildDir(workingDir)
             const defaultNodeVersion = execSync('node --version').toString().trim()
