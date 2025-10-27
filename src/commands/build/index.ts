@@ -3,6 +3,7 @@ import { execSync } from 'node:child_process'
 import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 
+import { ensureNvmInstalled } from '../../ensure-nvm-installed.js'
 import { Pipeline } from '../../entities/pipeline.js'
 import { resolveConfig } from '../../resolve-config.js'
 
@@ -62,8 +63,11 @@ export default class Build extends Command {
             const config = await resolveConfig(flags.config)
             const targetDir = resolve(process.cwd(), flags.target)
             const workingDir = this.getWorkingDir(targetDir)
+            const nvmSrcScript = join(workingDir, 'tools/nvm-src.sh')
             const buildDir = this.getBuildDir(workingDir)
             const defaultNodeVersion = execSync('node --version').toString().trim()
+
+            await ensureNvmInstalled(targetDir)
 
             for (const pipeline of config.pipelines) {
                 this.log(`Processing pipeline ${pipeline.name}...`)
