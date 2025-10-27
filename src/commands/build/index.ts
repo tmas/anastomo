@@ -27,14 +27,6 @@ export default class Build extends Command {
         }),
     }
 
-    getBuildDir(workingDir: string): string {
-        const buildDir = join(workingDir, 'build/')
-
-        mkdirSync(buildDir, { recursive: true })
-
-        return buildDir
-    }
-
     getPipelineWorkingDir(workingDir: string, pipeline: Pipeline): string {
         const path = join(workingDir, pipeline.name.toLowerCase().replaceAll(' ', '-') + '/')
 
@@ -64,7 +56,6 @@ export default class Build extends Command {
             const targetDir = resolve(process.cwd(), flags.target)
             const workingDir = this.getWorkingDir(targetDir)
             const nvmSrcScript = join(workingDir, 'tools/nvm-src.sh')
-            const buildDir = this.getBuildDir(workingDir)
             const defaultNodeVersion = execSync('node --version').toString().trim()
 
             await ensureNvmInstalled(targetDir)
@@ -134,10 +125,10 @@ export default class Build extends Command {
 
                 this.log('\tCopying artifacts...')
 
-                // copy artifacts from pipelineWorkingDir to buildDir unless they already exist
+                // copy artifacts from pipelineWorkingDir to targetDir, allowing overwrites with warnings
                 for (const file of pipeline.artifacts) {
                     const srcPath = join(pipelineWorkingDir, file)
-                    const destPath = join(buildDir, file)
+                    const destPath = join(targetDir, file)
                     this.log(`\t\tCopying artifact ${srcPath.replace(targetDir, '')} to ${destPath.replace(targetDir, '')}`)
 
                     // ensure directory for destPath exists
@@ -148,7 +139,7 @@ export default class Build extends Command {
                     }
 
                     if (existsSync(destPath)) {
-                        this.error(`\t\tERROR: artifact ${file} from pipeline ${pipeline.name} already exists in ${buildDir}. Aborting.`)
+                        this.warn(`\t\tWARNING: artifact ${file} from pipeline ${pipeline.name} already exists at ${destPath.replace(targetDir, '')}. Overwriting.`)
                     }
 
                     cpSync(srcPath, destPath, { recursive: true })
