@@ -4,7 +4,6 @@ import { z } from 'zod'
 
 import { Config, ConfigSchema } from './entities/config.js'
 import { defaultPipeline, Pipeline } from './entities/pipeline.js'
-import { npmInstalled } from './hooks/init/require-nvm.js'
 
 export async function resolveConfig(configPath: string): Promise<Config> {
   try {
@@ -34,11 +33,6 @@ export async function resolveConfig(configPath: string): Promise<Config> {
         artifacts: pipeline.artifacts,
         src: pipeline.src,
       }) as Pipeline)
-    }
-
-
-    if (resolvedConfig.pipelines.some(pipeline => pipeline.nodeVersion) && !(await npmInstalled())) {
-      throw new Error('Pipelines must not define nodeVersion unless NVM is available.')
     }
 
     return resolvedConfig as Config
