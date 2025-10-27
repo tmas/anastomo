@@ -102,7 +102,9 @@ export default class Build extends Command {
                 if (pipeline.buildCommand) {
                     const nodeVersion = pipeline.nodeVersion || defaultNodeVersion
                     this.log(`\t\tInstalling node version ${nodeVersion} and running '${pipeline.buildCommand}'...`)
-                    const result = execSync(`source $NVM_DIR/nvm.sh && nvm install ${nodeVersion} 2>&1 && ${pipeline.buildCommand}`, {cwd: pipelineWorkingDir})
+                    this.log(`\t\tUsing command: source ${nvmSrcScript} && nvm install ${nodeVersion} && ${pipeline.buildCommand}"`)
+
+                    const result = execSync(`source ${nvmSrcScript} && nvm install ${nodeVersion} && ${pipeline.buildCommand}`, {cwd: pipelineWorkingDir, shell: 'bash'})
                     for (const line of result.toString().split('\n')) {
                         this.log(`\t\t\t${line}`)
                     }
