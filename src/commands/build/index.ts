@@ -158,7 +158,7 @@ export default class Build extends Command {
             if (error instanceof Error) {
                 this.error(error.message)
             } else {
-                this.error('Failed to split assets and tooling: Unknown error')
+                this.error('Anastomo build failed: Unknown error')
             }
         }
     }
