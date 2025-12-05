@@ -10,6 +10,9 @@
       "src": [
         "resources/assets/js/old.js"
       ],
+      "configFiles": {
+        "tailwind.config.js": "tailwind.config.legacy.js"
+      },
       "artifacts": [
         "public/js/old.js"
       ]
@@ -17,13 +20,21 @@
     {
       "name": "modern",
       "description": "Modern JS build",
-      "buildCommand": "mkdir -p public/js && cp resources/assets/js/new.js public/js/",
+      "buildCommand": "mkdir -p public/js && cp resources/assets/js/new.js public/js/ && mkdir -p public/css && cp resources/assets/css/app.css public/css/",
       "nodeVersion": "lts/iron",
       "src": [
-        "resources/assets/js/new.js"
+        "resources/assets/js/new.js",
+        "resources/assets/css/static.css"
       ],
+      "configFiles": {
+        "tailwind.config.js": "tailwind.config.js"
+      },
+      "prePathMap": {
+        "resources/assets/css/static.css": "resources/assets/css/app.css"
+      },
       "artifacts": [
-        "public/js/new.js"
+        "public/js/new.js",
+        "public/css/app.css"
       ]
     },
     {

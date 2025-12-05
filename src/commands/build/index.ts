@@ -69,8 +69,15 @@ export default class Build extends Command {
                 cpSync(join(targetDir, pipeline.packageJson), join(pipelineWorkingDir, 'package.json'))
                 cpSync(join(targetDir, pipeline.packageLock), join(pipelineWorkingDir, 'package-lock.json'))
 
+                let effectiveSrc: string[] = pipeline.src;
+                if (pipeline.configFiles) {
+                    for (const [dest, src] of Object.entries(pipeline.configFiles)) {
+                        effectiveSrc.push(src)
+                    }
+                }
+
                 // copy src files to pipelineWorkingDir
-                for (const file of pipeline.src) {
+                for (const file of effectiveSrc) {
                     const srcPath = join(targetDir, file)
                     const destPath = join(pipelineWorkingDir, file)
                     this.log(`\t\tCopying asset ${srcPath.replace(targetDir, '')} to ${destPath.replace(targetDir, '')}`)
@@ -83,6 +90,55 @@ export default class Build extends Command {
                     }
 
                     cpSync(srcPath, destPath, { recursive: true })
+                }
+
+                // Handle configFiles and prePathMap before applying both as a pre-build path mapping.
+
+                // If configFiles or prePathMap exists, create an effective prePathMap
+                // combining the two.
+                //
+                // prePathMap is defined the same way as pathMap, with keys defining
+                // the source path and values defining the destination path.
+                //
+                // configFiles is the inverse, with keys defining the destination path
+                // and values defining the source path.
+                //
+                // This allows pathMap and prePathMap to be used similar to the cp
+                // terminal command, while configFiles is used as a declarative way
+                // to say "this is the version of package.json that should be used
+                // when running this pipeline."
+                if (pipeline.configFiles || pipeline.prePathMap) {
+                    let effectivePrePathMap: Record<string, string> = {};
+
+                    // Start with prePathMap if present, else empty object
+                    effectivePrePathMap = pipeline.prePathMap ? { ...pipeline.prePathMap } : {};
+
+                    // If configFiles is present, invert and merge
+                    if (pipeline.configFiles) {
+                        for (const [dest, src] of Object.entries(pipeline.configFiles)) {
+                            // Invert: {to: from} => {from: to}
+                            // Sometimes src and dest will be the same - if so, don't add to effectivePrePathMap.
+                            if (src !== dest) {
+                                effectivePrePathMap![src] = dest;
+                            }
+                        }
+                    }
+
+                    for (const [src, dest] of Object.entries(effectivePrePathMap)) {
+                        const srcPath = join(pipelineWorkingDir, src)
+                        const destPath = join(pipelineWorkingDir, dest)
+
+                        this.log(`\t\tCopying ${srcPath.replace(targetDir, '')} to ${destPath.replace(targetDir, '')}`)
+
+                        // ensure directory for destPath exists
+                        const destDir = dirname(destPath)
+                        if (!existsSync(destDir)) {
+                            this.log(`\t\t\tCreating directory ${destDir.replace(targetDir, '')}`)
+                            mkdirSync(destDir, { recursive: true })
+                        }
+
+                        cpSync(srcPath, destPath, { recursive: true })
+                    }
                 }
 
                 this.log(`\tSplit complete! Building pipeline ${pipeline.name}...`)
