@@ -69,7 +69,7 @@ export default class Build extends Command {
                 cpSync(join(targetDir, pipeline.packageJson), join(pipelineWorkingDir, 'package.json'))
                 cpSync(join(targetDir, pipeline.packageLock), join(pipelineWorkingDir, 'package-lock.json'))
 
-                let effectiveSrc: string[] = pipeline.src;
+                const effectiveSrc: string[] = [...pipeline.src]
                 if (pipeline.configFiles) {
                     for (const [dest, src] of Object.entries(pipeline.configFiles)) {
                         effectiveSrc.push(src)
