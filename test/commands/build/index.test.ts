@@ -10,7 +10,6 @@ describe('build', () => {
     // ensure the build directory contains the expected files
     const artifactDir = join(process.cwd(), 'test', 'test-projects', 'example1', 'public')
     expect(fs.existsSync(artifactDir)).to.be.true
-    console.log('artifactDir contents', fs.readdirSync(artifactDir, { recursive: true }))
     expect(fs.readdirSync(artifactDir, { recursive: true }).sort()).to.deep.equal([
       'css',
       'js',
